@@ -16,8 +16,7 @@ BASE_URL_PATH = "/_pygwalker/comm/".strip("/")
 
 async def _pygwalker_router(req: Request) -> Response:
     gid = req.path_params["gid"]
-    comm_obj = gradio_comm_map.get(gid, None)
-    if comm_obj is None:
+    if (comm_obj := gradio_comm_map.get(gid, None)) is None:
         return JSONResponse({"success": False, "message": f"Unknown gid: {gid}"})
     json_data = await req.json()
     # pylint: disable=protected-access

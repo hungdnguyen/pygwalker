@@ -94,8 +94,7 @@ def _get_default_code() -> str:
 
 
 def get_formated_spec_params_code(code: str) -> str:
-    call_func = _find_walk_func_node(code.strip())
-    if call_func is None:
+    if (call_func := _find_walk_func_node(code.strip())) is None:
         return ''
     return _repalce_spec_params_code(call_func)
 

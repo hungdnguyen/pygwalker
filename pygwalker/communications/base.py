@@ -23,8 +23,7 @@ class BaseCommunication:
         raise NotImplementedError
 
     def _receive_msg(self, action: str, data: Dict[str, Any]) -> Dict[str, Any]:
-        handler_func = self._endpoint_map.get(action, None)
-        if handler_func is None:
+        if (handler_func := self._endpoint_map.get(action, None)) is None:
             return {"code": ErrorCode.UNKNOWN_ERROR, "data": None, "message": f"Unknown action: {action}"}
         try:
             data = handler_func(data)

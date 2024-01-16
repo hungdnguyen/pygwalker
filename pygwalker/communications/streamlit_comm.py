@@ -28,8 +28,7 @@ class PygwalkerHandler(tornado.web.RequestHandler):
         return True
 
     def post(self, gid: str):
-        comm_obj = streamlit_comm_map.get(gid, None)
-        if comm_obj is None:
+        if (comm_obj := streamlit_comm_map.get(gid, None)) is None:
             self.write({"success": False, "message": f"Unknown gid: {gid}"})
             return
         json_data = json.loads(self.request.body)

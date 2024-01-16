@@ -175,9 +175,8 @@ def read_config_from_cloud(path: str) -> str:
 
 
 def get_cloud_graphic_walker(workspace_name: str, chart_name: str) -> str:
-    chart_data = _get_chart_by_name(chart_name, workspace_name)
 
-    if chart_data is None:
+    if (chart_data := _get_chart_by_name(chart_name, workspace_name)) is None:
         raise CloudFunctionError("chart not exists", code=ErrorCode.CLOUD_CHART_NOT_FOUND)
 
     try:
@@ -212,9 +211,8 @@ def create_cloud_graphic_walker(
         "specList": []
     })
 
-    chart_data = _get_chart_by_name(chart_name, workspace_name)
 
-    if chart_data is not None:
+    if (chart_data := _get_chart_by_name(chart_name, workspace_name)) is not None:
         raise CloudFunctionError("chart name already exists", code=ErrorCode.UNKNOWN_ERROR)
 
     dataset_name = f"pygwalker_{datetime.now().strftime('%Y%m%d%H%M')}"
@@ -370,9 +368,8 @@ def upload_cloud_chart(
 ) -> str:
     workspace_name = get_kanaries_user_info()["workspaceName"]
 
-    chart_data = _get_chart_by_name(chart_name, workspace_name)
 
-    if chart_data is not None:
+    if (chart_data := _get_chart_by_name(chart_name, workspace_name)) is not None:
         raise CloudFunctionError("chart name already exists", code=ErrorCode.UNKNOWN_ERROR)
 
     dataset_id = create_cloud_dataset(data_parser, dataset_name, False)

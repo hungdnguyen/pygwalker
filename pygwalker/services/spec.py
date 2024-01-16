@@ -77,8 +77,7 @@ def _get_spec_json_from_diff_source(spec: str) -> Tuple[str, str]:
     if len(os.path.basename(spec)) > 200:
         raise ValueError("Spec file name too long")
 
-    file_exist = os.path.exists(spec)
-    if file_exist:
+    if file_exist := os.path.exists(spec):
         return _get_spec_from_local(spec), "json_file"
     else:
         with open(spec, "w", encoding="utf-8") as f:
